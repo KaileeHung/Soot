@@ -24,6 +24,8 @@ public class LogicScript : MonoBehaviour
         Debug.Log("Game restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
     // // Start is called before the first frame update
     // void Start()
     // {

@@ -73,7 +73,7 @@ public class CoalSpawner : MonoBehaviour
     }
 
     void CheckAndDestroyCoal() {
-        GameObject[] coalInstances = GameObject.FindGameObjectsWithTag("CandyCoal");
+        GameObject[] coalInstances = GameObject.FindGameObjectsWithTag("Coal");
 
         foreach (GameObject coalInstance in coalInstances) {
             if (coalInstance.transform.position.y < deadZone) {

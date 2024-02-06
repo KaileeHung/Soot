@@ -33,9 +33,20 @@ public class MoveScript : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("CandyCoal")) {
-            Debug.Log("Game Over");
-            logic.gameOver();
+
+        switch (collision.gameObject.tag) {
+            case "Coal":
+                Debug.Log("Game Over");
+                logic.gameOver();
+                break;
+
+            case "Candy":
+                Debug.Log("Increase Score");
+                logic.addScore();
+                break;
+
+            default:
+                break;
         }
     }
 }
