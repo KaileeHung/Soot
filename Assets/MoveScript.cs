@@ -8,9 +8,10 @@ public class MoveScript : MonoBehaviour
     public float speed;
     // Start is called before the first frame update
     public float jumpStrength;
+    public LogicScript logic;
     void Start()
     {
-        
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
@@ -29,5 +30,12 @@ public class MoveScript : MonoBehaviour
             myRigidBody.velocity = Vector2.up * jumpStrength;
         }
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("CandyCoal")) {
+            Debug.Log("Game Over");
+            logic.gameOver();
+        }
     }
 }
