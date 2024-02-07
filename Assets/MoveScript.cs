@@ -9,6 +9,8 @@ public class MoveScript : MonoBehaviour
     // Start is called before the first frame update
     public float jumpStrength;
     public LogicScript logic;
+    public Sprite happySprite;
+    public Sprite deadSprite;
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
@@ -26,7 +28,7 @@ public class MoveScript : MonoBehaviour
             transform.Translate(movement * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) == true) {
+        if (Input.GetKeyDown(KeyCode.UpArrow) == true) {
             myRigidBody.velocity = Vector2.up * jumpStrength;
         }
         
@@ -34,14 +36,19 @@ public class MoveScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) {
 
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
         switch (collision.gameObject.tag) {
             case "Coal":
                 Debug.Log("Game Over");
+                spriteRenderer.sprite = deadSprite;
                 logic.gameOver();
                 break;
 
             case "Candy":
                 Debug.Log("Increase Score");
+                spriteRenderer.sprite = happySprite;
+                Destroy(collision.gameObject);
                 logic.addScore();
                 break;
 
