@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MoveScript : MonoBehaviour
@@ -11,9 +12,14 @@ public class MoveScript : MonoBehaviour
     public LogicScript logic;
     public Sprite happySprite;
     public Sprite deadSprite;
+    private SpriteRenderer spriteRenderer;
+    private Sprite defaultSprite;
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultSprite = spriteRenderer.sprite;;
     }
 
     // Update is called once per frame
@@ -31,12 +37,11 @@ public class MoveScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) == true) {
             myRigidBody.velocity = Vector2.up * jumpStrength;
         }
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
 
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         switch (collision.gameObject.tag) {
             case "Coal":
@@ -48,6 +53,7 @@ public class MoveScript : MonoBehaviour
             case "Candy":
                 Debug.Log("Increase Score");
                 spriteRenderer.sprite = happySprite;
+                Invoke("RevertSprite", 0.5f);
                 Destroy(collision.gameObject);
                 logic.addScore();
                 break;
@@ -55,5 +61,9 @@ public class MoveScript : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void RevertSprite() {
+        spriteRenderer.sprite = defaultSprite;
     }
 }
