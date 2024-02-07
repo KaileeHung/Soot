@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coal: {fileID: 1958201134378081715, guid: d5c81612239f84ac7a1101e0c3085ef4, type: 3}
-  candy: {fileID: 7873452007601834275, guid: 58a5bc02ddcac42aaa1eac2794bfa630, type: 3}
+  candy: {fileID: 7873452007601834275, guid: 8d3e5e8e925e742ee9c38e0608c8c7fb, type: 3}
   spawnRateCoal: 2
   spawnRateCandy: 8
   offset: 10
