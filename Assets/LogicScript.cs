@@ -9,15 +9,23 @@ public class LogicScript : MonoBehaviour
     public int playerScore;
     public Text scoreText;
     public GameObject gameOverScreen;
+    public GameObject winScreen;
+    public GameObject playScreen;
 
     [ContextMenu("Increase Score")]
     public void addScore() {
         playerScore += 1;
         scoreText.text = playerScore + "/20";
+        if (playerScore == 20) {
+            winScreen.SetActive(true);
+            playScreen.SetActive(false);
+        }
     }
 
     public void gameOver() {
         gameOverScreen.SetActive(true);
+        playScreen.SetActive(false);
+
     }
 
     public void restartGame() {
