@@ -14,12 +14,13 @@ public class MoveScript : MonoBehaviour
     public Sprite deadSprite;
     private SpriteRenderer spriteRenderer;
     private Sprite defaultSprite;
+    private bool canJump = true;
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        defaultSprite = spriteRenderer.sprite;;
+        defaultSprite = spriteRenderer.sprite;
     }
 
     // Update is called once per frame
@@ -34,14 +35,19 @@ public class MoveScript : MonoBehaviour
             transform.Translate(movement * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) == true) {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canJump){
             myRigidBody.velocity = Vector2.up * jumpStrength;
+            canJump = false;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (collision.gameObject.tag == "Ground") {
+            canJump = true;
+        }
 
         switch (collision.gameObject.tag) {
             case "Coal":
