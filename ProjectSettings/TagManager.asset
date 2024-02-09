@@ -8,6 +8,7 @@ TagManager:
   - Coal
   - Candy
   - Ground
+  - Fire
   layers:
   - Default
   - TransparentFX

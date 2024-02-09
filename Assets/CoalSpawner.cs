@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO.Pipes;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CoalSpawner : MonoBehaviour
@@ -19,7 +15,7 @@ public class CoalSpawner : MonoBehaviour
     // so coal and candy don't fall too closely
     public float offset = 10;
 
-    public double deadZone = -5.27;
+    public double deadZoneY = -5.27;
 
     // Start is called before the first frame update
     void Start()
@@ -66,11 +62,19 @@ public class CoalSpawner : MonoBehaviour
 
     void CheckAndDestroyCoal() {
         GameObject[] coalInstances = GameObject.FindGameObjectsWithTag("Coal");
+        GameObject[] candyInstances = GameObject.FindGameObjectsWithTag("Candy");
 
         foreach (GameObject coalInstance in coalInstances) {
-            if (coalInstance.transform.position.y < deadZone) {
+            if (coalInstance.transform.position.y < deadZoneY) {
                 Debug.Log("Coal deleted");
                 Destroy(coalInstance);
+            }
+        }
+
+        foreach (GameObject candyInstance in candyInstances) {
+            if (candyInstance.transform.position.y < deadZoneY) {
+                Debug.Log("Candy deleted");
+                Destroy(candyInstance);
             }
         }
     }
