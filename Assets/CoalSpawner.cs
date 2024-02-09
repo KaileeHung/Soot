@@ -15,7 +15,6 @@ public class CoalSpawner : MonoBehaviour
 
     // number that will count up
     private float timerCoal = 0;
-    private float timerCandy = 0;
 
     // so coal and candy don't fall too closely
     public float offset = 10;
@@ -39,13 +38,6 @@ public class CoalSpawner : MonoBehaviour
         }
 
         CheckAndDestroyCoal();
-
-        // if (timerCandy < spawnRateCandy) {
-        //     timerCandy += Time.deltaTime;
-        // } else {
-        //     Spawn();
-        //     timerCandy = 0;
-        // }  
     }
 
     void Spawn() {

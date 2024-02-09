@@ -11,12 +11,13 @@ public class LogicScript : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject winScreen;
     public GameObject playScreen;
+    public int scoreToWin;
 
     [ContextMenu("Increase Score")]
     public void addScore() {
         playerScore += 1;
-        scoreText.text = playerScore + "/20";
-        if (playerScore == 20) {
+        scoreText.text = playerScore + "/" + scoreToWin;
+        if (playerScore == scoreToWin) {
             winScreen.SetActive(true);
             playScreen.SetActive(false);
         }
@@ -34,11 +35,12 @@ public class LogicScript : MonoBehaviour
     }
 
 
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerScore = 0;
+        scoreText.text = playerScore + "/" + scoreToWin;
+    }
 
     // // Update is called once per frame
     // void Update()

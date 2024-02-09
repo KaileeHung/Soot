@@ -41,14 +41,7 @@ public class MoveScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (collision.gameObject.tag == "Ground") {
-            canJump = true;
-        }
-
+    private void OnTriggerEnter2D(Collider2D collision) {
         switch (collision.gameObject.tag) {
             case "Coal":
                 Debug.Log("Game Over");
@@ -66,6 +59,15 @@ public class MoveScript : MonoBehaviour
 
             default:
                 break;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (collision.gameObject.tag == "Ground") {
+            canJump = true;
         }
     }
 
