@@ -42,24 +42,37 @@ public class MoveScript : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        switch (collision.gameObject.tag) {
-            case "Coal":
-                Debug.Log("Game Over");
-                spriteRenderer.sprite = deadSprite;
-                logic.gameOver();
-                break;
 
-            case "Candy":
-                Debug.Log("Increase Score");
-                spriteRenderer.sprite = happySprite;
-                Invoke("RevertSprite", 0.5f);
-                Destroy(collision.gameObject);
-                logic.addScore();
-                break;
-
-            default:
-                break;
+        if (collision.gameObject.tag == "Coal" || collision.gameObject.tag == "Fire") {
+            Debug.Log("Game Over");
+            spriteRenderer.sprite = deadSprite;
+            logic.gameOver();
+        } else if (collision.gameObject.tag == "Candy") {
+            Debug.Log("Increase Score");
+            spriteRenderer.sprite = happySprite;
+            Invoke("RevertSprite", 0.5f);
+            Destroy(collision.gameObject);
+            logic.addScore();
         }
+
+        // switch (collision.gameObject.tag) {
+        //     case "Coal":
+        //         Debug.Log("Game Over");
+        //         spriteRenderer.sprite = deadSprite;
+        //         logic.gameOver();
+        //         break;
+
+        //     case "Candy":
+        //         Debug.Log("Increase Score");
+        //         spriteRenderer.sprite = happySprite;
+        //         Invoke("RevertSprite", 0.5f);
+        //         Destroy(collision.gameObject);
+        //         logic.addScore();
+        //         break;
+
+        //     default:
+        //         break;
+        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
