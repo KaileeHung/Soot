@@ -4,15 +4,11 @@ public class FireSpawner : MonoBehaviour
 {
     public GameObject fire;
 
-    // seconds between spawns
-    public float spawnRateFireMin = 3;
-    public float spawnRateFireMax = 10;
+    public float spawnRateFireMin;
+    public float spawnRateFireMax;
     
     // number that will count up
     private float timerFire = 0;
-
-    // so coal and candy don't fall too closely
-    public float offset = 10;
 
     public double deadZoneX = -9.7;
     public double startingY = -4.72;
