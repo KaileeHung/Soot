@@ -3,7 +3,7 @@ using UnityEngine;
 public class FireMoveScript : MonoBehaviour
 {
 
-    public float moveSpeed = 1;
+    public float moveSpeed;
     // Start is called before the first frame update
     void Start()
     {
