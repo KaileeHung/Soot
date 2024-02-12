@@ -18,15 +18,12 @@ public class LogicScript : MonoBehaviour
         playerScore += 1;
         scoreText.text = playerScore + "/" + scoreToWin;
         if (playerScore == scoreToWin) {
-            winScreen.SetActive(true);
-            playScreen.SetActive(false);
+            StartCoroutine(FreezeForOneSecond("win"));
         }
     }
 
     public void gameOver() {
-        gameOverScreen.SetActive(true);
-        playScreen.SetActive(false);
-
+        StartCoroutine(FreezeForOneSecond("lose"));
     }
 
     public void restartGame() {
@@ -40,6 +37,26 @@ public class LogicScript : MonoBehaviour
     {
         playerScore = 0;
         scoreText.text = playerScore + "/" + scoreToWin;
+    }
+    IEnumerator FreezeForOneSecond(string state)
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1f;
+
+        switch(state) {
+            case "win" :
+                winScreen.SetActive(true);
+                break;
+
+            case "lose":
+                gameOverScreen.SetActive(true);
+                break;
+
+            default:
+                break;
+        }
+        playScreen.SetActive(false);
     }
 
     // // Update is called once per frame
