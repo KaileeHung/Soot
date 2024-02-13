@@ -12,11 +12,14 @@ public class LogicScript : MonoBehaviour
     public GameObject winScreen;
     public GameObject playScreen;
     public int scoreToWin;
-    private AudioSource audioSource;
-    private bool deathSoundTriggered = false;
+    public AudioSource deathSound;
+    public AudioSource happySound1;
+    public AudioSource happySound2;
+    private AudioSource[] happySounds;
 
     [ContextMenu("Increase Score")]
     public void addScore() {
+        happySounds[UnityEngine.Random.Range(0, 2)].Play();
         playerScore += 1;
         scoreText.text = playerScore + "/" + scoreToWin;
         if (playerScore == scoreToWin) {
@@ -25,10 +28,7 @@ public class LogicScript : MonoBehaviour
     }
 
     public void gameOver() {
-        deathSoundTriggered = true;
-        if (deathSoundTriggered) {
-            audioSource.Play();
-        }
+        deathSound.Play();
         StartCoroutine(FreezeForOneSecond("lose"));
     }
 
@@ -44,8 +44,8 @@ public class LogicScript : MonoBehaviour
         playerScore = 0;
         scoreText.text = playerScore + "/" + scoreToWin;
 
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null) {
+        happySounds = new AudioSource[] { happySound1, happySound2 };
+        if (deathSound == null || happySound1 == null || happySound2 == null) {
             Debug.LogError("Audio Source component not found!");
         }
     }
