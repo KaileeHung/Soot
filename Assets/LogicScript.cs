@@ -16,6 +16,7 @@ public class LogicScript : MonoBehaviour
     public AudioSource happySound1;
     public AudioSource happySound2;
     private AudioSource[] happySounds;
+    private bool gameEnd = false;
 
     [ContextMenu("Increase Score")]
     public void addScore() {
@@ -58,10 +59,12 @@ public class LogicScript : MonoBehaviour
         switch(state) {
             case "win" :
                 winScreen.SetActive(true);
+                gameEnd = true;
                 break;
 
             case "lose":
                 gameOverScreen.SetActive(true);
+                gameEnd = true;
                 break;
 
             default:
@@ -71,8 +74,11 @@ public class LogicScript : MonoBehaviour
     }
 
     // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    void Update()
+    {
+        if (gameEnd && Input.GetKeyDown(KeyCode.Space)) {
+            gameEnd = false;
+            restartGame();
+        }
+    }
 }
