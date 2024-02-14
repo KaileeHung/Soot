@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5198021937079989872}
   - component: {fileID: 2447399540583782409}
   - component: {fileID: 4245775714238924113}
+  - component: {fileID: 6001358179116083807}
   m_Layer: 6
   m_Name: Candy
   m_TagString: Candy
@@ -221,3 +222,20 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &6001358179116083807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873452007601834275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4315af3b02b974372a19d540b14d1750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorOptions:
+  - {r: 1, g: 0.62352943, b: 0.79607844, a: 0}
+  - {r: 1, g: 0.95686275, b: 0.7058824, a: 0}
+  - {r: 0.5019608, g: 1, b: 0.39215687, a: 0}
+  - {r: 0, g: 1, b: 0.8627451, a: 0}
