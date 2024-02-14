@@ -51,6 +51,10 @@ public class LogicScript : MonoBehaviour
         playerScore = 0;
         scoreText.text = playerScore + "/" + scoreToWin;
 
+        startScreen.SetActive(true);
+        playScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+
         happySounds = new AudioSource[] { happySound1, happySound2 };
         if (deathSound == null || happySound1 == null || happySound2 == null) {
             Debug.LogError("Audio Source component not found!");
