@@ -11,12 +11,14 @@ public class LogicScript : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject winScreen;
     public GameObject playScreen;
+    public GameObject startScreen;
     public int scoreToWin;
     public AudioSource deathSound;
     public AudioSource happySound1;
     public AudioSource happySound2;
     private AudioSource[] happySounds;
     private bool gameEnd = false;
+    private bool atStart = true;
 
     [ContextMenu("Increase Score")]
     public void addScore() {
@@ -38,6 +40,10 @@ public class LogicScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void playGame() {
+        startScreen.SetActive(false);
+        playScreen.SetActive(true);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +82,11 @@ public class LogicScript : MonoBehaviour
     // // Update is called once per frame
     void Update()
     {
+        if (atStart && Input.anyKeyDown) {
+            atStart = false;
+            playGame();
+        }
+
         if (gameEnd && Input.anyKeyDown) {
             gameEnd = false;
             restartGame();
