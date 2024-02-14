@@ -76,7 +76,7 @@ public class LogicScript : MonoBehaviour
     // // Update is called once per frame
     void Update()
     {
-        if (gameEnd && Input.GetKeyDown(KeyCode.Space)) {
+        if (gameEnd && Input.anyKeyDown) {
             gameEnd = false;
             restartGame();
         }
