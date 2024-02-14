@@ -53,6 +53,7 @@ public class LogicScript : MonoBehaviour
 
         startScreen.SetActive(true);
         playScreen.SetActive(false);
+        winScreen.SetActive(false);
         gameOverScreen.SetActive(false);
 
         happySounds = new AudioSource[] { happySound1, happySound2 };
