@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// CURRENTLY UNUSED
+// to move the fire, but replaced with visual scripting
 public class FireMoveScript : MonoBehaviour
 {
 

@@ -20,31 +20,24 @@ public class FallingSpawner : MonoBehaviour
     private float timerCandy2 = 2;
     private Camera mainCamera;
     private float screenLeft;
-    private float screenMiddle;
     private float screenRight;
 
+    // below the screen
     public double deadZoneY = -5.27;
     private string[] obstacleTagList = {"Coal", "Candy"};
-    // private float tempX = 0;
     private Queue<float> posXQueue = new Queue<float>();
 
-    // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
         screenLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
-        screenMiddle = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width/2, 0, 0)).x;
         screenRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
-        Debug.Log("left: " + screenLeft);
-        Debug.Log("right: " + screenRight);
 
         posXQueue.Enqueue(Spawn(coal, UnityEngine.Random.Range(-8, 8)));
     }
 
-    // Update is called once per frame
     void Update()
     {
-
 
         if (timerCoal1 < UnityEngine.Random.Range(spawnRateCoalMin, spawnRateCoalMax+1)) {
             timerCoal1 += Time.deltaTime;
@@ -77,8 +70,8 @@ public class FallingSpawner : MonoBehaviour
         CheckandDestroyAllObstacles(obstacleTagList);
     }
 
-    // pick a position +- a certain offset of the previous. randomly pick +-
-
+    // keep the x position of the last 5 objects that fell and ensure
+    // that the next one won't fall in the same places
     private float AdjustQueue() {
         int xPos;
         bool goodVal;
@@ -103,7 +96,6 @@ public class FallingSpawner : MonoBehaviour
         if (posXQueue.Count >= 6) {
             posXQueue.Dequeue();
         }
-        Debug.Log("xpos: " + xPos);
         return xPos;
     }
 
@@ -112,6 +104,7 @@ public class FallingSpawner : MonoBehaviour
         return xpos;
     }
 
+    // destroy obstacles when they get out of view
     void CheckandDestroyAllObstacles(string[] tagList) {
         foreach (string tag in tagList) {
             CheckAndDestroyObstacle(tag);

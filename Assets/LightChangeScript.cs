@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// To instantiate the lighting/glow around the candy to a random color from a set of colors
 public class LightChangeScript : MonoBehaviour
 {
     public Color[] colorOptions;
     private Light myLight;
-    // Start is called before the first frame update
+
     void Start()
     {
         myLight = GetComponent<Light>();
@@ -26,7 +27,7 @@ public class LightChangeScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // can even make it change colors as it falls
     // void Update()
     // {
         

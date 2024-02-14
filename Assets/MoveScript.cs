@@ -7,7 +7,6 @@ public class MoveScript : MonoBehaviour
 {
     public Rigidbody2D myRigidBody;
     public float speed;
-    // Start is called before the first frame update
     public float jumpStrength;
     public LogicScript logic;
     public Sprite happySprite;
@@ -23,7 +22,7 @@ public class MoveScript : MonoBehaviour
         defaultSprite = spriteRenderer.sprite;
     }
 
-    // Update is called once per frame
+    // movement of soot sprite (can only jump once before hitting the ground)
     void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow) == true) {
@@ -41,12 +40,14 @@ public class MoveScript : MonoBehaviour
         }
     }
 
+    // handle collisions
     private void OnTriggerEnter2D(Collider2D collision) {
 
         if (collision.gameObject.tag == "Coal" || collision.gameObject.tag == "Fire") {
             Debug.Log("Game Over");
             spriteRenderer.sprite = deadSprite;
             logic.gameOver();
+
         } else if (collision.gameObject.tag == "Candy") {
             Debug.Log("Increase Score");
             spriteRenderer.sprite = happySprite;
@@ -54,25 +55,6 @@ public class MoveScript : MonoBehaviour
             Destroy(collision.gameObject);
             logic.addScore();
         }
-
-        // switch (collision.gameObject.tag) {
-        //     case "Coal":
-        //         Debug.Log("Game Over");
-        //         spriteRenderer.sprite = deadSprite;
-        //         logic.gameOver();
-        //         break;
-
-        //     case "Candy":
-        //         Debug.Log("Increase Score");
-        //         spriteRenderer.sprite = happySprite;
-        //         Invoke("RevertSprite", 0.5f);
-        //         Destroy(collision.gameObject);
-        //         logic.addScore();
-        //         break;
-
-        //     default:
-        //         break;
-        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -84,6 +66,7 @@ public class MoveScript : MonoBehaviour
         }
     }
 
+    // to make the sprite go back to default after changing expressions
     private void RevertSprite() {
         spriteRenderer.sprite = defaultSprite;
     }

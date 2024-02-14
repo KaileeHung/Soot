@@ -8,11 +8,11 @@ public class LogicScript : MonoBehaviour
 {
     public int playerScore;
     public Text scoreText;
+    public int scoreToWin;
     public GameObject gameOverScreen;
     public GameObject winScreen;
     public GameObject playScreen;
     public GameObject startScreen;
-    public int scoreToWin;
     public AudioSource deathSound;
     public AudioSource happySound1;
     public AudioSource happySound2;
@@ -20,6 +20,41 @@ public class LogicScript : MonoBehaviour
     private bool gameEnd = false;
     private bool atStart = true;
 
+    void Start()
+    {
+        // set the score counter
+        playerScore = 0;
+        scoreText.text = playerScore + "/" + scoreToWin;
+
+        // set screens
+        startScreen.SetActive(true);
+        playScreen.SetActive(false);
+        winScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+
+        // check sounds
+        happySounds = new AudioSource[] { happySound1, happySound2 };
+        if (deathSound == null || happySound1 == null || happySound2 == null) {
+            Debug.LogError("Audio Source component not found!");
+        }
+    }
+
+    void Update()
+    {
+        // from start to play
+        if (atStart && Input.anyKeyDown) {
+            atStart = false;
+            playGame();
+        }
+
+        // from end to restart
+        if (gameEnd && Input.anyKeyDown) {
+            gameEnd = false;
+            restartGame();
+        }
+    }
+
+    // called from MoveScript.cs
     [ContextMenu("Increase Score")]
     public void addScore() {
         happySounds[UnityEngine.Random.Range(0, 2)].Play();
@@ -30,43 +65,30 @@ public class LogicScript : MonoBehaviour
         }
     }
 
+    // called from MoveScript.cs
     public void gameOver() {
         deathSound.Play();
         StartCoroutine(FreezeForOneSecond("lose"));
     }
 
     public void restartGame() {
-        Debug.Log("Game restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // start screen to play
     public void playGame() {
         startScreen.SetActive(false);
         playScreen.SetActive(true);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerScore = 0;
-        scoreText.text = playerScore + "/" + scoreToWin;
-
-        startScreen.SetActive(true);
-        playScreen.SetActive(false);
-        winScreen.SetActive(false);
-        gameOverScreen.SetActive(false);
-
-        happySounds = new AudioSource[] { happySound1, happySound2 };
-        if (deathSound == null || happySound1 == null || happySound2 == null) {
-            Debug.LogError("Audio Source component not found!");
-        }
-    }
     IEnumerator FreezeForOneSecond(string state)
     {
+        // let the game freeze for a second so it doesn't transition too quickly
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
 
+        // end game with win or lose
         switch(state) {
             case "win" :
                 winScreen.SetActive(true);
@@ -84,17 +106,4 @@ public class LogicScript : MonoBehaviour
         playScreen.SetActive(false);
     }
 
-    // // Update is called once per frame
-    void Update()
-    {
-        if (atStart && Input.anyKeyDown) {
-            atStart = false;
-            playGame();
-        }
-
-        if (gameEnd && Input.anyKeyDown) {
-            gameEnd = false;
-            restartGame();
-        }
-    }
 }

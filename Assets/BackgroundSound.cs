@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// CURRENTLY UNUSED
+// to play the background audio during the game
 public class BackgroundSound : MonoBehaviour
 {
 
     private AudioSource audioSource;
-    // Start is called before the first frame update
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -21,8 +23,8 @@ public class BackgroundSound : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    // void Update()
+    // {
         
-    }
+    // }
 }
